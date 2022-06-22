@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { apiPasswordExpire } from "../../../api/numbers";
+import { apiPasswordExtend } from "../../../api/numbers";
 import { formatNumber } from "../../../lib/utill";
 import ActionPhone from '../../ActionPhone/ActionPhone';
 
@@ -20,7 +20,7 @@ const ServiceExtend = () => {
 		} else {
 			setError(null);
 			// тут будет fetch
-			apiPasswordExpire(formatNumber(number)).then((res) => {
+			apiPasswordExtend(formatNumber(number)).then((res) => {
 				//console.log(res);
 				setInfo(res);
 				setRequestError({ error: false, message: "" })

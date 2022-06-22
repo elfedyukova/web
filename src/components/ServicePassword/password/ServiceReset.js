@@ -1,6 +1,7 @@
-import { Block, BlockContent, Button, Form, Paragraph, Spacer, TextField } from "@qiwi/pijma-desktop";
 import { useState } from 'react';
 import ActionPhone from '../../ActionPhone/ActionPhone';
+import { apiPasswordExpire } from "../../../api/numbers";
+import { formatNumber } from "../../../lib/utill";
 
 const ServiceReset = () => {
 
@@ -13,6 +14,16 @@ const ServiceReset = () => {
 		} else {
 			setError(null);
 			// тут будет fetch
+			apiPasswordExpire(formatNumber(number)).then((res) => {
+				//console.log(res);
+				//setInfo(res);
+				//setRequestError({ error: false, message: "" })
+			}).catch((err) => {
+				//setRequestError({ error: true, message: err.errorMessage });
+				//console.log(err);
+				//setInfo(null);
+
+			})
 		}
 	}
 
