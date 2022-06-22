@@ -1,6 +1,6 @@
 import { Block, BlockContent, Button, Form, Paragraph, Spacer, TextField } from "@qiwi/pijma-desktop";
 import { useState } from 'react';
-import { apiGetUserData, apiPasswordExpire } from "../../../api/numbers";
+import { apiGetUserData, apiPasswordExpire, apiPasswordExtend } from "../../../api/numbers";
 import { formatNumber } from "../../../lib/utill";
 
 const ServiceExtend = () => {
@@ -20,7 +20,7 @@ const ServiceExtend = () => {
 		} else {
 			setError(null);
 			// тут будет fetch
-			apiPasswordExpire(formatNumber(number)).then((res) => {
+			apiPasswordExtend(formatNumber(number)).then((res) => {
 				//console.log(res);
 				setInfo(res);
 				setRequestError({ error: false, message: "" })
