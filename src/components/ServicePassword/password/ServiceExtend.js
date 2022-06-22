@@ -1,7 +1,7 @@
-import { Block, BlockContent, Button, Form, Paragraph, Spacer, TextField } from "@qiwi/pijma-desktop";
 import { useState } from 'react';
-import { apiGetUserData, apiPasswordExpire } from "../../../api/numbers";
+import { apiPasswordExpire } from "../../../api/numbers";
 import { formatNumber } from "../../../lib/utill";
+import ActionPhone from '../../ActionPhone/ActionPhone';
 
 const ServiceExtend = () => {
 
@@ -34,28 +34,14 @@ const ServiceExtend = () => {
 	}
 
 	return (
-		<Spacer>
-			<Paragraph>Продлить срок действия пароля</Paragraph>
-			<Form>
-				<Spacer>
-					<TextField
-						title="Номер телефона"
-						type="tel"
-						mask={['+', /7/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-						value={number}
-						onChange={text => setNumber(text)}
-						error={error}
-					/>
-					<Button
-						kind="brand"
-						type="submit"
-						size="accent"
-						text="Продлить"
-						onClick={() => submitForm()}
-					/>
-				</Spacer>
-			</Form>
-		</Spacer>
+		<ActionPhone
+			title='Продлить срок действия пароля'
+			buttonLabel='Продлить'
+			number={number}
+			setNumber={setNumber}
+			action={submitForm}
+			error={error}
+		/>
 	)
 }
 
