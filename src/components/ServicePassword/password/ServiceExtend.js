@@ -5,7 +5,7 @@ import ActionPhone from '../../ActionPhone/ActionPhone';
 
 const ServiceExtend = () => {
 
-	const [info, setInfo] = useState(null);
+	const [status, setStatus] = useState(null);
 	const [number, setNumber] = useState(null);
 	const [error, setError] = useState(null);
 	const [requestError, setRequestError] = useState({
@@ -22,12 +22,14 @@ const ServiceExtend = () => {
 			// тут будет fetch
 			apiPasswordExtend(formatNumber(number)).then((res) => {
 				//console.log(res);
-				setInfo(res);
+				//setInfo(res);
+				setStatus("ok")
 				setRequestError({ error: false, message: "" })
 			}).catch((err) => {
 				setRequestError({ error: true, message: err.errorMessage });
 				//console.log(err);
-				setInfo(null);
+				//setInfo(null);
+				setStatus("error")
 
 			})
 		}
@@ -41,6 +43,7 @@ const ServiceExtend = () => {
 			setNumber={setNumber}
 			action={submitForm}
 			error={error}
+			status={status}
 		/>
 	)
 }

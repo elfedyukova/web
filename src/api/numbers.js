@@ -49,7 +49,7 @@ export const apiGetUser = async () => {
     }
   }
 }
-export const apiPasswordExpire = async (number) => {
+export const apiPasswordReset = async (number) => {
   try {
     const response = await axios.post(`http://localhost:4000/account/${number}/password/${number}/expire`);
 
@@ -65,6 +65,20 @@ export const apiPasswordExpire = async (number) => {
 export const apiPasswordExtend = async (number) => {
   try {
     const response = await axios.post(`http://localhost:4000/account/${number}/password/${number}/unexpire`);
+
+    return response.data
+  } catch (error) {
+
+    if (error.response) {
+
+      throw error.response.data;
+    }
+  }
+}
+
+export const apiPasswordReturn = async (number) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/account/${number}/password/set-default`);
 
     return response.data
   } catch (error) {
