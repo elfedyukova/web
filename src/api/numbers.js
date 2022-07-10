@@ -89,3 +89,59 @@ export const apiPasswordReturn = async (number) => {
     }
   }
 }
+
+export const apiP2Penable = async (number) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/account/${number}/p2p/enable`);
+
+    return response.data
+  } catch (error) {
+
+    if (error.response) {
+
+      throw error.response.data;
+    }
+  }
+}
+
+export const apiP2Pdisable = async (number) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/account/${number}/p2p/disable`);
+
+    return response.data
+  } catch (error) {
+
+    if (error.response) {
+
+      throw error.response.data;
+    }
+  }
+}
+
+export const apiPrioritetAdd = async (number) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/account/${number}/priority-package/add`);
+
+    return response.data
+  } catch (error) {
+
+    if (error.response) {
+
+      throw error.response.data;
+    }
+  }
+}
+
+export const apiPrioritetClear = async (number) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/account/${number}/priority-package/clear`);
+
+    return response.data
+  } catch (error) {
+
+    if (error.response) {
+
+      throw error.response.data;
+    }
+  }
+}

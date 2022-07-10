@@ -1,57 +1,59 @@
 import { Block, BlockContent, Button, Form, RadioField, Spacer, TextField } from "@qiwi/pijma-desktop";
 import { useState } from 'react';
+import { apiPrioritetAdd, apiPrioritetClear } from "../../../api/numbers";
+import { formatNumber } from "../../../lib/utill";
+import ActionPhone from "../../ActionPhone/ActionPhone";
 
-const ServicePrioritet  = () => {
+const ServicePrioritet = () => {
 
-    const [value, setValue] = useState(1);
     const [number, setNumber] = useState(null);
+    const [status, setStatus] = useState(null);
     const [error, setError] = useState(null);
+    const [radio, setRadio] = useState(1);
 
     const submitForm = () => {
         if (!number) {
             setError('Введите номер телефона');
         } else {
             setError(null);
-            // тут будет fetch
+            if (radio === 1) {
+                apiPrioritetAdd(formatNumber(number)).then((res) => {
+                    setStatus("ok")
+                }).catch((err) => {
+                    setStatus("error")
+                })
+            } else {
+                apiPrioritetClear(formatNumber(number)).then((res) => {
+                    setStatus("ok")
+                }).catch((err) => {
+                    setStatus("error")
+                })
+            }
         }
     }
 
     return (
-        <Spacer>
-        <Form>
-            <Spacer>
-                <TextField
-                    title="Номер телефона"
-                    type="tel"
-                    mask={['+', /7/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                    value={number}
-                    onChange={text => setNumber(text)}
-                    error={error}
-                />
-                <RadioField
-                    options={[{
-                        label: 'Выставить пакет "Приоритет"',
-                        value: 1,
-                        disabled: false,
-                    }, {
-                        label: 'Удалить пакет "Приоритет"',
-                        value: 2,
-                        disabled: false,
-                    }
-                ]}
-                    value={value}
-                    onChange={(value) => setValue(value)}
-                />
-                <Button
-                    kind="brand"
-                    type="submit"
-                    size="accent"
-                    text="Отправить"
-                    onClick={() => submitForm()}
-                />
-            </Spacer>
-        </Form>
-    </Spacer>
+        <ActionPhone
+            title=''
+            buttonLabel='Отправить'
+            number={number}
+            setNumber={setNumber}
+            action={submitForm}
+            error={error}
+            status={status}
+            radio={radio}
+            setRadio={setRadio}
+            radioOptions={[{
+                label: 'Установить P2P флаг',
+                value: 1,
+                disabled: false,
+            }, {
+                label: 'Снять P2P флаг',
+                value: 2,
+                disabled: false,
+            }
+            ]}
+        />
     )
 }
 

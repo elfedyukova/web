@@ -20,16 +20,13 @@ const ServiceReturn = () => {
 			setError('Введите номер телефона');
 		} else {
 			setError(null);
-			// тут будет fetch
+
 			apiPasswordReturn(formatNumber(number)).then((res) => {
-				//console.log(res);
-				//setInfo(res);
+
 				setStatus("ok")
 				setRequestError({ error: false, message: "" })
 			}).catch((err) => {
-				setRequestError({ error: true, message: err.errorMessage });
-				//console.log(err);
-				//setInfo(null);
+				//setRequestError({ error: true, message: err.errorMessage });
 				setStatus("error")
 
 			})

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Alert, Button, Form, Paragraph, Spacer, TextField } from '@qiwi/pijma-desktop'
+import { Alert, Button, Form, Paragraph, RadioField, Spacer, TextField } from '@qiwi/pijma-desktop'
 
-const ActionPhone = ({ title, buttonLabel, number, setNumber, action, error, status }) => {
+const ActionPhone = ({ title, buttonLabel, number, setNumber, action, error, status, radio, setRadio, radioOptions }) => {
 
 	return (
 		<Spacer>
@@ -16,6 +16,14 @@ const ActionPhone = ({ title, buttonLabel, number, setNumber, action, error, sta
 						onChange={text => setNumber(text)}
 						error={error}
 					/>
+
+					{radio && setRadio && radioOptions &&
+						<RadioField
+							options={radioOptions}
+							value={radio}
+							onChange={(value) => setRadio(value)}
+						/>}
+
 					<Button
 						kind="brand"
 						type="submit"
@@ -27,8 +35,8 @@ const ActionPhone = ({ title, buttonLabel, number, setNumber, action, error, sta
 			</Form>
 			{status && <Alert
 				width={154}
-				type="success"
-				text={status == "ok" ? "Успешно" : "Неуспешно"}
+				type={status == "ok" ? "success" : "failure"}
+				text={status == "ok" ? "Успешно" : "Неуспешно. Пожалуйста, попробуйте позже."}
 			/>}
 		</Spacer>
 	)

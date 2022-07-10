@@ -32,31 +32,31 @@ export default function Services() {
 
         {parseInt(m) === 0 ? (
           <ServiceInformation />
-         ) : parseInt(m) === 1 ? (
+        ) : parseInt(m) === 1 ? (
           <ServicePassword />
-         )
-        : parseInt(m) === 2 ? (
-        <ServiceRegistration />
         )
-        : parseInt(m) === 3 ? (
-          <ServiceUser />
-        )
-        : parseInt(m) === 4 ? (
-          <ServiceSettings />
-        )
-        : parseInt(m) === 5 ? (
-          <ServicePin />
-        )
-        : parseInt(m) === 6 ? (
-          <ServicePayment />
-        )
-        : parseInt(m) === 7 ? (
-          <ServiceMyDetails />
+          : parseInt(m) === 2 ? (
+            <ServiceRegistration />
           )
-          : parseInt(m) === 8 ? (
-            <ServiceIdentification /> 
-        ) : null}
-        
+            : parseInt(m) === 3 ? (
+              <ServiceUser />
+            )
+              : parseInt(m) === 4 ? (
+                <ServiceSettings />
+              )
+                : parseInt(m) === 5 ? (
+                  <ServicePin />
+                )
+                  : parseInt(m) === 6 ? (
+                    <ServicePayment />
+                  )
+                    : parseInt(m) === 7 ? (
+                      <ServiceMyDetails />
+                    )
+                      : parseInt(m) === 8 ? (
+                        <ServiceIdentification />
+                      ) : null}
+
       </FlexItem>
 
       <FlexItem width={1 / 3}>
@@ -64,6 +64,7 @@ export default function Services() {
           <Card py={5}>
             {menuItems.map((item, idx) => (
               <MenuLink
+                active={m == idx}
                 key={idx}
                 title={item}
                 onClick={() => setSearchParams({ m: idx })}
