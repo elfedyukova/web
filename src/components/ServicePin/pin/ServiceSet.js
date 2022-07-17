@@ -1,18 +1,26 @@
-import { Block, BlockContent, Button, Form, Paragraph, Spacer, TextField } from "@qiwi/pijma-desktop";
+import { Alert, Block, BlockContent, Button, Form, Paragraph, Spacer, TextField } from "@qiwi/pijma-desktop";
 import { useState } from 'react';
+import { apiTerminalPinCodeSet } from "../../../api/numbers";
+import { formatNumber } from "../../../lib/utill";
 
 const ServiceSet = () => {
 
 	const [number, setNumber] = useState(null);
-    const [text, setText] = useState(null);
+	const [pin, setPin] = useState(null);
 	const [error, setError] = useState(null);
+	const [status, setStatus] = useState(null);
 
 	const submitForm = () => {
 		if (!number) {
 			setError('Введите номер телефона');
 		} else {
 			setError(null);
-			// тут будет fetch
+			apiTerminalPinCodeSet(formatNumber(number), pin).then((res) => {
+				setStatus("ok")
+			}).catch((err) => {
+				setStatus("error")
+			})
+
 		}
 	}
 
@@ -29,12 +37,12 @@ const ServiceSet = () => {
 						onChange={text => setNumber(text)}
 						error={error}
 					/>
-                     <TextField
-        title="PIN"
-        type="text"
-        value={text}
-        onChange={text => setText(text)}
-      />
+					<TextField
+						title="PIN"
+						type="text"
+						value={pin}
+						onChange={text => setPin(text)}
+					/>
 					<Button
 						kind="brand"
 						type="submit"
@@ -44,6 +52,11 @@ const ServiceSet = () => {
 					/>
 				</Spacer>
 			</Form>
+			{status && <Alert
+				width={154}
+				type={status == "ok" ? "success" : "failure"}
+				text={status == "ok" ? "Успешно" : "Неуспешно. Пожалуйста, попробуйте позже."}
+			/>}
 		</Spacer>
 	)
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ServicePinDelete from "./pin/ServicePinDelete";
 import ServicePinReset from "./pin/ServicePinReset";
 import ServiceSet from "./pin/ServiceSet";
+import ServicePinDate from "./pin/ServicePinDate";
 
 const ServicePin = () => {
 
@@ -28,6 +29,11 @@ const ServicePin = () => {
 						title: 'Обнулить',
 						icon: 'clock',
 						content: <ServicePinReset />,
+					},
+					{
+						title: 'Установить время последней смены PIN-кода',
+						icon: 'clock',
+						content: <ServicePinDate />,
 					}
 				]}
 			/>

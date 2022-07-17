@@ -1,66 +1,62 @@
 import { Block, BlockContent, Button, Form, Paragraph, RadioField, Spacer, TextField } from "@qiwi/pijma-desktop";
 import { useState } from 'react';
+import { apiBalanceDelete } from "../../../api/numbers";
+import { formatNumber } from "../../../lib/utill";
+import ActionPhone from "../../ActionPhone/ActionPhone";
 
-const ServiceAccount  = () => {
+const ServiceAccount = () => {
 
-    const [value, setValue] = useState(1);
+    const currencies = ["RUB", "KZT", "USD", "EUR"];
     const [number, setNumber] = useState(null);
+    const [status, setStatus] = useState(null);
     const [error, setError] = useState(null);
+    const [radio, setRadio] = useState(1);
 
     const submitForm = () => {
         if (!number) {
             setError('Введите номер телефона');
         } else {
             setError(null);
-            // тут будет fetch
+            apiBalanceDelete(formatNumber(number), currencies[radio - 1]).then((res) => {
+                setStatus("ok")
+            }).catch((err) => {
+                setStatus("error")
+            })
+
         }
     }
 
     return (
-        <Spacer>
-        <Paragraph>Удалить счет</Paragraph>
-            <Form>
-                <Spacer>
-                    <TextField
-                        title="Номер телефона"
-                        type="tel"
-                        mask={['+', /7/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                        value={number}
-                        onChange={text => setNumber(text)}
-                        error={error}
-                    />
-                    <RadioField
-                        options={[{
-                            label: 'RUB',
-                            value: 1,
-                            disabled: false,
-                        }, {
-                            label: 'KZT',
-                            value: 2,
-                            disabled: false,
-                        }, {
-                            label: 'USD',
-                            value: 2,
-                            disabled: false,
-                        }, {
-                            label: 'UER',
-                            value: 2,
-                            disabled: false,
-                        }
-                    ]}
-                        value={value}
-                        onChange={(value) => setValue(value)}
-                    />
-                    <Button
-                        kind="brand"
-                        type="submit"
-                        size="accent"
-                        text="Удалить"
-                        onClick={() => submitForm()}
-                    />
-                </Spacer>
-            </Form>
-        </Spacer>
+
+        <ActionPhone
+            title=''
+            buttonLabel='Отправить'
+            number={number}
+            setNumber={setNumber}
+            action={submitForm}
+            error={error}
+            status={status}
+            radio={radio}
+            setRadio={setRadio}
+            radioOptions={[{
+                label: 'RUB',
+                value: 1,
+                disabled: false,
+            }, {
+                label: 'KZT',
+                value: 2,
+                disabled: false,
+            }, {
+                label: 'USD',
+                value: 3,
+                disabled: false,
+            }, {
+                label: 'EUR',
+                value: 4,
+                disabled: false,
+            }
+            ]}
+        />
     )
 }
 

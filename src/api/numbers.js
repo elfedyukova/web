@@ -145,3 +145,45 @@ export const apiPrioritetClear = async (number) => {
     }
   }
 }
+
+export const apiBalanceDelete = async (number, currencyId) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/account/${number}/balance/delete?currencyId=${currencyId}`);
+
+    return response.data
+  } catch (error) {
+
+    if (error.response) {
+
+      throw error.response.data;
+    }
+  }
+}
+
+export const apiTerminalPinCodeSet = async (number, pinCode) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/account/${number}/terminal/pin-code/set`, { pinCode });
+
+    return response.data
+  } catch (error) {
+
+    if (error.response) {
+
+      throw error.response.data;
+    }
+  }
+}
+
+export const apiTerminalPinCodeSetLastDate = async (number, date) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/account/${number}/mobile/pin-code/last-sms-date/set`, { date });
+
+    return response.data
+  } catch (error) {
+
+    if (error.response) {
+
+      throw error.response.data;
+    }
+  }
+}
